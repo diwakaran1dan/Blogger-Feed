@@ -1,0 +1,24 @@
+<script type="text/javascript">
+function recentpostslist(json) {
+ document.write('<div>');
+ for (var i = 0; i < json.feed.entry.length; i++)
+ {
+    for (var j = 0; j < json.feed.entry[i].link.length; j++) {
+      if (json.feed.entry[i].link[j].rel == 'alternate') {
+        break;
+      }
+    }
+var entryUrl = json.feed.entry[i].link[j].href;//bs
+var entryTitle = json.feed.entry[i].title.$t;
+var entryIMG = json.feed.entry[i].media$thumbnail.url.replace(/.*?:\/\//g,"//");
+var entryIMGS = entryIMG.replace("s72-c", "s320");
+
+
+
+var item = "<p><a  target='_blank'  href='"+entryUrl+"?utm_source=DKK_AMP_Redirect&utm_medium=DKK_AMP&utm_campaign=DKK_AMP_Redirect'>"+entryTitle+"<img alt='"+entryTitle+"' src='"+entryIMGS+"'></img></a></p>";
+ document.write(item);
+ }
+ document.write('</div>');
+ }
+</script>
+<script src="https://google.blogspot.com/feeds/posts/default?alt=json-in-script&callback=recentpostslist&max-results=500"></script>
